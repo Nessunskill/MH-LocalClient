@@ -14,7 +14,7 @@ const App = () => {
                 <Route path='/' element={<Layout/>}>
                     <Route index element={<Dashboard/>}/>
                     <Route path='transactions' element={<Transactions/>}/>
-                    <Route path='savings' element={<Savings/>}/>
+                    {/* <Route path='savings' element={<Savings/>}/> */}
                     <Route path='analytics' element={<Analytics/>}/>
                     <Route path='settings' element={<Settings/>}/>
                     <Route path='*' element={<NotFound/>} />

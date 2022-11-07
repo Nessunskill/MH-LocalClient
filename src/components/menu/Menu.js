@@ -52,7 +52,7 @@ const Menu = ({userName}) => {
                                 Транзакции
                         </NavLink>
                     </li>
-                    <li className="menu__item" onClick={(e) => handleActiveLink(e.target.getAttribute("data-link"))} data-link="savings">
+                    {/* <li className="menu__item" onClick={(e) => handleActiveLink(e.target.getAttribute("data-link"))} data-link="savings">
                         <NavLink data-link="savings" to="savings" className={({isActive}) => !isActive ? "menu__link" : "menu__link menu__link_active"}>
                             <img
                                 data-link="savings"
@@ -60,8 +60,8 @@ const Menu = ({userName}) => {
                                 src={activeLink === "savings" ? `${process.env.PUBLIC_URL}/images/menu/savings_light.png` : `${process.env.PUBLIC_URL}/images/menu/savings_dark.png`} alt="icon"/>
                                 Накопления
                         </NavLink>
-                    </li>
-                    <li className="menu__item" onClick={(e) => handleActiveLink(e.target.getAttribute("data-link"))} data-link="settings">
+                    </li> */}
+                    {/* <li className="menu__item" onClick={(e) => handleActiveLink(e.target.getAttribute("data-link"))} data-link="settings">
                         <NavLink data-link="settings" to="settings" className={({isActive}) => !isActive ? "menu__link" : "menu__link menu__link_active"}>
                             <img
                                 data-link="settings"
@@ -69,7 +69,7 @@ const Menu = ({userName}) => {
                                 src={activeLink === "settings" ? `${process.env.PUBLIC_URL}/images/menu/settings.png` : `${process.env.PUBLIC_URL}/images/menu/settings_dark.png`} alt="settings"/>
                                 Настройки
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li onMouseLeave={() => setHoverExit(false)} onMouseOver={() => setHoverExit(true)} onClick={onExit} className="menu__item">
                         <span className="menu__link">
                             <img

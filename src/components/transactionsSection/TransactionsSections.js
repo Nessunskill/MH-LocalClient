@@ -24,14 +24,6 @@ const TransactionsSections = () => {
 
     return(
         <div className="transactions-container transactions">
-            <div className="transactions__header">
-                <div className="transactions__header-text">
-                    <span className="transactions__header-title">Последние транзакции</span>
-                    <span className="transactions__header-info">Всего {transactions.length} транзакций</span>
-                </div>
-                <button className="transactions__header-button button">Посмотреть все</button>
-            </div>
-
             <div className="transactions__navigation navigation">
                 <ul className="navigation__menu">
                     <li onClick={(e) => setLinkAsActive(e, linksRef)} className="navigation__item">
@@ -113,9 +105,9 @@ const TransactionsSections = () => {
                     }
                 })
             }
-            <div className="transactions__load-more">
+            {/* <div className="transactions__load-more">
                 <button className="transactions__header-button button">Загрузить больше</button>
-            </div>
+            </div> */}
         </div>
     )
 }
