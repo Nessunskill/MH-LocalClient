@@ -5,8 +5,8 @@ export const useAuthorizedRequest = () => {
         "authorization": `Bearer ${localStorage.getItem("accessToken")}`
     }) => {
         try {
-            // const _baseURL = "https://money-holder-server.herokuapp.com/api/";
-            const _baseURL = "http://localhost:4000/api/";
+            const _baseURL = "https://money-holder-server.herokuapp.com/api/";
+            // const _baseURL = "http://localhost:4000/api/";
             const response = await fetch(_baseURL + url, {method, body, headers});
 
             if (!response.ok) {
