@@ -1,0 +1,123 @@
+.transaction {
+    width: 100%;
+    height: 75px;
+    border: 1px solid gray;
+    border-radius: 8px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    padding: 0px 5px;
+    margin-bottom: 10px;
+
+    &__icon {
+        width: 55px;
+    }
+
+    &__description {
+        margin: 0px 0px 0px 10px;
+    }
+    
+    &__description__type {
+        font-weight: 700;
+        font-size: 21px;
+    }
+
+    &__description__date-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    &__description__info {
+        display: flex;
+        align-items: center;
+    }
+
+    &__description__wallet {
+        font-weight: 600;
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+    &__description__arrow {
+        display: flex;
+        margin: 0px 10px;
+    }
+
+    &__date__input {
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        opacity: 0.8;
+        border: none;
+        outline: none;
+        border-bottom: 2px solid rgba(0, 0, 0, 0);
+        width: 125px;
+        cursor: pointer;
+
+        &:focus {
+            border-bottom: 2px solid #000;
+        }
+    }
+
+    &__amount {
+        margin-left: auto;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        &__text-input {
+            font-size: 20px;
+            font-weight: 700;
+            outline: none;
+            border: none;
+            cursor: pointer;
+
+            &:focus {
+                text-decoration: underline;
+                cursor: text;
+            }
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &__text {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        &__edit {
+            margin-left: 5px;
+            display: inline;
+        }
+
+        &__save {
+            margin-left: 5px;
+            display: none;
+        }
+
+        &__discard {
+            margin-left: 5px;
+            display: none;
+        }
+    }
+
+    &__description {
+
+        &__text {
+            opacity: 0.8;
+            font-weight: 700;
+            font-size: 17px;
+        }
+    }
+
+    &__remove {
+        cursor: pointer;
+        margin-right: 15px;
+        margin-left: 150px;
+    }
+}

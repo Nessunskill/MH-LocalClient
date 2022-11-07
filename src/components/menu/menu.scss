@@ -1,0 +1,47 @@
+.greetings {
+    font-size: 28px;
+    font-weight: 700;
+    padding-top: 15px;
+}
+
+.menu {
+    margin-top: 25px;
+    list-style: none;
+    
+    &__item {
+        margin: 5px;
+        cursor: pointer;
+        width: 200px;
+    }
+
+    &__icon {
+        position: relative;
+        padding: 0px 15px 5px 15px;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        width: 200px;
+        height: 45px;
+        font-size: 22px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #000;
+        border-radius: 10px;
+        background-color: #FFF;
+
+        &:hover {
+            background-color: rgb(219, 217, 217);
+        }
+
+        &_active {
+            color: #FFF;
+            background-color: rgb(17, 17, 17);
+
+            &:hover {
+                background-color: rgb(17, 17, 17);
+            }
+        }
+    }
+}
