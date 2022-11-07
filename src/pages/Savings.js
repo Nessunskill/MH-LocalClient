@@ -41,9 +41,6 @@ const Savings = () => {
         const expensesData = filteredExpenses.map(item => Number((item.amount * 100 / totalExpenses).toFixed(2)));
         const expensesInRadians = expensesData.map(item => 2 * Math.PI * item / 100);
 
-        console.log(expensesData);
-        console.log(expensesInRadians);
-
         let prev, curr = 0;
 
         for (let i = 0; i < expensesData.length; i++) {

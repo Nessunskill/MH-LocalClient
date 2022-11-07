@@ -4,11 +4,8 @@ import { useSelector } from "react-redux";
 import "./Layout.scss";
 import "../styles/general.scss";
 import Menu from "../components/menu/Menu";
-import PieChart from "../components/charts/PieChart";
 
 const Layout = () => {
-    const {expenses} = useSelector(state => state.expenses);
-
     const {auth, userName} = useSelector(state => state.auth);
     const navigate = useNavigate();
 
@@ -28,7 +25,7 @@ const Layout = () => {
             </main>
 
             <aside className='layout__sidebar'>
-                <PieChart data={expenses} width={300} height={500} hideLegens={true} />
+
             </aside>   
         </div>
     )

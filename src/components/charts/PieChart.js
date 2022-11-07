@@ -3,7 +3,6 @@ import "./pieChart.scss";
 
 const PierChart = ({data, width, height, hideLegens}) => {
     const canvasRef = useRef();
-    const legendRef = useRef();
 
     const hexColors = ["#1abc9c", "#f1c40f", "#fab1a0", "#2980b9", "#e74c3c", "#34495e", "#9b59b6", "#e67e22"];
 
@@ -14,14 +13,11 @@ const PierChart = ({data, width, height, hideLegens}) => {
         ctx.save();
         ctx.beginPath();
         
-
-
         ctx.arc(x, y, radius, start, end, wise);
         ctx.lineTo(x, y);
         ctx.fillStyle = color;
         ctx.fill();
         ctx.closePath();
-
  
         ctx.textAlign = "center";
         ctx.fillStyle = "black";
@@ -89,6 +85,7 @@ const PierChart = ({data, width, height, hideLegens}) => {
 
             axisY = axisY + 40;
         }
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
@@ -102,6 +99,7 @@ const PierChart = ({data, width, height, hideLegens}) => {
         ctx.font = "700 32px Nunito";
         ctx.fillText("Статистика расходов", width / 2, 50);
         ctx.closePath();
+        // eslint-disable-next-line
     }, []);
 
     return(
