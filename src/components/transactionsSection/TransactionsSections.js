@@ -44,7 +44,6 @@ const TransactionsSections = () => {
                 // eslint-disable-next-line
                 transactions.map((item, i) => {
                     if (filter === "all") {
-                        // if (i >= 10) return null
                         return <TransactionItem
                             key={item.id}
                             amount={item.amount}
@@ -59,7 +58,6 @@ const TransactionsSections = () => {
                             />
                     }
                     if (filter === "expenses" && item.transactionType === "expense") {
-                        if (i >= 10) return null
                         return <TransactionItem
                             key={item.id}
                             amount={item.amount}
@@ -74,7 +72,6 @@ const TransactionsSections = () => {
                             />
                     }
                     if (filter === "income" && item.transactionType === "income") {
-                        if (i >= 10) return null
                         return <TransactionItem
                             key={item.id}
                             amount={item.amount}
@@ -89,7 +86,6 @@ const TransactionsSections = () => {
                             />
                     }
                     if (filter === "transfers" && item.transactionType === "transfer") {
-                        if (i >= 10) return null
                         return <TransactionItem
                             key={item.id}
                             amount={item.amount}

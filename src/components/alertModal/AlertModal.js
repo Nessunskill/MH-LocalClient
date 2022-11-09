@@ -73,7 +73,7 @@ const AlertModal = ({foundTransactions, closeModal, closeAlert, categoryId, type
     }
 
     const onRemove = () => {
-        request(`category/remove/${categoryId}`, "POST")
+        request(`category/remove/${categoryId}`, "POST", JSON.stringify({categoryType: type}))
             .then(deleteCategory(type));
     }
 
