@@ -12,8 +12,10 @@ export const login = createAsyncThunk(
     "auth/login",
     async (userData) => {
         const {request} = useAuthorizedRequest();
-
-        return request("login", "POST", JSON.stringify(userData));
+        return request("login", "POST", JSON.stringify(userData))
+            // .then(() => {
+            //     document.cookie = 
+            // })
     }
 );
 
