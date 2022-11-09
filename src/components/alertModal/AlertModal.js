@@ -15,7 +15,7 @@ const AlertModal = ({foundTransactions, closeModal, closeAlert, categoryId, type
     const {expenses} = useSelector(state => state.expenses);
 
     const onFullRemove = () => {
-        request(`category/removefull/${categoryId}`, "POST")
+        request(`category/removefull/${categoryId}`, "POST", JSON.stringify({categoryType: type}))
             .then(deleteCategory(type));
 
         foundTransactions.forEach(item => {

@@ -25,6 +25,7 @@ const EditForm = ({closeModal, id, currentTitle, currentCurrency, currentIcon, t
             newTitle: title,
             newIcon: activeIcon,
             newCurrency: currency,
+            categoryType: type
         }
 
         request(`category/changefields/${id}`, "POST", JSON.stringify(data))
@@ -50,7 +51,7 @@ const EditForm = ({closeModal, id, currentTitle, currentCurrency, currentIcon, t
             setFoundTransactions(foundTransactions)
             setShowAlert(true);
         } else {
-            request(`category/remove/${id}`, "POST")
+            request(`category/remove/${id}`, "POST", JSON.stringify({categoryType: type}))
                 .then(deleteCategory(type));
 
             closeModal();
