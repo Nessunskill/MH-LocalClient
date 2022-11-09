@@ -1,4 +1,4 @@
-import { createContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useRef } from "react";
 import "./pie.scss";
 
@@ -103,6 +103,7 @@ const Pie = ({values, labels, width, height}) => {
             drawLabels(labels[i], hexColors[i], ctx, y);
             y = y + 35;
         }
+        // eslint-disable-next-line 
     }, [values]);
 
     return(

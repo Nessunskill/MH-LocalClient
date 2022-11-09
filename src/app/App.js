@@ -2,6 +2,7 @@ import './App.scss';
 
 import { Routes, Route } from 'react-router-dom';
 import Layout from '../layout/Layout';
+// eslint-disable-next-line 
 import { Login, Registration, Dashboard, Transactions, Savings, Analytics, Settings, NotFound } from '../pages/PagesCollection';
 
 const App = () => {

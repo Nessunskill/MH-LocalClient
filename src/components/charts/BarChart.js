@@ -26,8 +26,6 @@ const BarChart = ({values, labels, width, height}) => {
 
         ctx.width = width;
         ctx.height = height;
-
-
         
         ctx.beginPath();
         ctx.moveTo(40, height);
@@ -40,9 +38,6 @@ const BarChart = ({values, labels, width, height}) => {
 
         let y = 0;
 
-        // высота = amount * 100 / lastStepValue - высота в процентах  30
-        // высота в пикселях = высота в процентах * высоту холста / 100
-
         for (let i = 0; i < stepLength; i++) {
             ctx.beginPath();
             ctx.textAlign = "left";
@@ -53,7 +48,7 @@ const BarChart = ({values, labels, width, height}) => {
             y += 30;
         }
         
-        let x = 50; //540
+        let x = 50;
 
         let barHeight = 0;
         let barWidth = (canvas.width - 160) / values.length;
@@ -81,6 +76,7 @@ const BarChart = ({values, labels, width, height}) => {
         ctx.strokeStyle = "black";
         ctx.stroke();
         ctx.closePath();
+        // eslint-disable-next-line 
     }, []);
 
     return(

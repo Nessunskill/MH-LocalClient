@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import BarChart from "../components/charts/BarChart";
 import Pie from "../components/charts/Pie";
