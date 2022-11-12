@@ -11,8 +11,7 @@ import { updateWalletBalance } from "../../redux/slices/walletsSlice";
 import { updateExpenseBalance } from "../../redux/slices/expensesSlice";
 import $axios from "../../axios/axios";
 
-const ExpenseForm = ({title, closeModal, from, to, year, month, day}) => {
-    const today = `${year}-${month}-${day}`;
+const ExpenseForm = ({title, closeModal, from, to, today}) => {
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState(today);
     const dispatch = useDispatch();

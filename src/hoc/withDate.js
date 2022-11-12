@@ -8,7 +8,9 @@ const withDate = (WrappedComponent) => {
         month = newDate.getMonth() + 1;
         year = newDate.getFullYear();
 
-        return <WrappedComponent year={year} month={month} day={day} {...props}/>
+        const today = `${year}-${month}-${day}`;
+
+        return <WrappedComponent today={today} {...props}/>
     }
 }
 
