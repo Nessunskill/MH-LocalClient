@@ -17,7 +17,7 @@ const expenses = createSlice({
     name: "expenses",
     initialState,
     reducers: {
-        createExpense: (state, action) => { state.expenses.push(action.payload) },
+        createExpense: (state, action) => { state.expenses.push(action.payload.data) },
         updateExpenseBalance: (state, action) => {
             state.expenses.forEach(item => {
                 if (item.id === action.payload.id) {

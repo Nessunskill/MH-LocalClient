@@ -17,7 +17,7 @@ const income = createSlice({
     name: "income",
     initialState,
     reducers: {
-        createIncome: (state, action) => { state.income.push(action.payload) },
+        createIncome: (state, action) => { state.income.push(action.payload.data) },
         updateIncomeBalance: (state, action) => {
             state.income.forEach(item => {
                 if (item.id === action.payload.id) {

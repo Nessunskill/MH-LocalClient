@@ -17,7 +17,7 @@ const wallets = createSlice({
     name: "wallets",
     initialState,
     reducers: {
-        createWallet: (state, action) => { state.wallets.push(action.payload) },
+        createWallet: (state, action) => { state.wallets.push(action.payload.data) },
         updateWalletBalance: (state, action) => {
             state.wallets.forEach(item => {
                 if (item.id === action.payload.id) {
