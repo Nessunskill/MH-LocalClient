@@ -5,10 +5,9 @@ import { removeWallet, updateWalletInfo } from "../../redux/slices/walletsSlice"
 import { removeExpense, updateExpenseInfo } from "../../redux/slices/expensesSlice";
 import AlertModal from "../alertModal/AlertModal";
 import "./transactionForm.scss";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 
 const EditForm = ({closeModal, id, currentTitle, currentCurrency, currentIcon, type}) => {
-    const {request} = useAuthorizedRequest();
     const {icons} = useSelector(state => state.icons);
     const [title, setTitle] = useState(currentTitle);
     const [activeIcon, setActiveIcon] = useState(currentIcon);
@@ -28,7 +27,7 @@ const EditForm = ({closeModal, id, currentTitle, currentCurrency, currentIcon, t
             categoryType: type
         }
 
-        request(`category/changefields/${id}`, "POST", JSON.stringify(data))
+        $axios.post(`category/changefields/${id}`, data)
             .then(() => {
                 if (type === "income") {
                     dispatch(updateIncomeInfo({id, title, icon: activeIcon, currency}));
@@ -40,7 +39,6 @@ const EditForm = ({closeModal, id, currentTitle, currentCurrency, currentIcon, t
                     dispatch(updateExpenseInfo({id, title, icon: activeIcon, currency}));
                 }
             });
-
         closeModal();
     }
 
@@ -51,7 +49,7 @@ const EditForm = ({closeModal, id, currentTitle, currentCurrency, currentIcon, t
             setFoundTransactions(foundTransactions)
             setShowAlert(true);
         } else {
-            request(`category/remove/${id}`, "POST", JSON.stringify({categoryType: type}))
+            $axios.post(`category/remove/${id}`, {categoryType: type})
                 .then(deleteCategory(type));
 
             closeModal();

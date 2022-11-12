@@ -1,14 +1,13 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 import { createExpense } from "../../redux/slices/expensesSlice";
 import { createIncome } from "../../redux/slices/incomeSlice";
 import { createWallet } from "../../redux/slices/walletsSlice";
 import "./transactionForm.scss";
 
 const CreateForm = ({closeModal, type}) => {
-    const {request} = useAuthorizedRequest();
     const {icons} = useSelector(state => state.icons);
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
@@ -30,13 +29,12 @@ const CreateForm = ({closeModal, type}) => {
             currency: currency,
         }
 
-        request(`${apiEndPoint}`, "POST", JSON.stringify(data))
+        $axios.post(apiEndPoint, data)
             .then(res => {
                 if (apiEndPoint === "income") dispatch(createIncome(res.data));
                 if (apiEndPoint === "wallets") dispatch(createWallet(res.data));
                 if (apiEndPoint === "categories") dispatch(createExpense(res.data));
-            });
-
+            });  
         closeModal();
     }
 

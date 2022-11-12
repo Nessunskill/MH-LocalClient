@@ -1,5 +1,5 @@
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import $axios from "../../axios/axios";
 
 const initialState = {
     transactions: [],
@@ -9,9 +9,7 @@ const initialState = {
 export const fetchTransactions = createAsyncThunk(
     "transactions/fetchTransactions",
     async () => {
-        const {request} = useAuthorizedRequest();
-
-        return request("transactions");
+        return $axios.get("transactions");
     }
 );
 
@@ -44,7 +42,7 @@ const transactionsSlice = createSlice({
                 state.transactionsLoadingStatus = "loading";
             })
             .addCase(fetchTransactions.fulfilled, (state, action) => {
-                state.transactions = action.payload.data;
+                state.transactions = action.payload.data.data;
                 state.transactions = state.transactions.reverse();
                 state.transactionsLoadingStatus = "idle";
             })

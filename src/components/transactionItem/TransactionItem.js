@@ -6,10 +6,9 @@ import { changeTransactionAmount, changeTransactionDate, removeTransaction } fro
 import { updateExpenseAmount } from "../../redux/slices/expensesSlice";
 import { updateWalletAmount } from "../../redux/slices/walletsSlice";
 import { updateIncomeAmount } from "../../redux/slices/incomeSlice";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 
 const TransactionItem = ({amount, type, description, fromTitle, fromIcon, toTitle, toIcon, date, id}) => {
-    const {request} = useAuthorizedRequest();
     const {transactions} = useSelector(state => state.transactions);
     const {income} = useSelector(state => state.income);
     const {wallets} = useSelector(state => state.wallets);
@@ -65,7 +64,7 @@ const TransactionItem = ({amount, type, description, fromTitle, fromIcon, toTitl
 
     const onRemove = (id) => {
         dispatch(removeTransaction(id));
-        request(`transactions/remove/${id}`, "POST")
+        $axios.post(`transactions/remove/${id}`, {});
 
         const transaction = transactions.find(element => element.id === id);
 
@@ -189,7 +188,7 @@ const TransactionItem = ({amount, type, description, fromTitle, fromIcon, toTitl
             }));
         }
 
-        request(`transactions/changeamount/${id}`, "POST", JSON.stringify({newAmount: amountInput}));
+        $axios.post(`transactions/changeamount/${id}`, {newAmount: amountInput});
     }
 
     const showControllers = () => {
@@ -235,7 +234,7 @@ const TransactionItem = ({amount, type, description, fromTitle, fromIcon, toTitl
             date: dateInput
         }));
 
-        request(`transactions/changedate/${id}`, "POST", JSON.stringify({newDate: dateInput}));
+        $axios.post(`transactions/changedate/${id}`, {newDate: dateInput});
 
         hideDateControllers();
     }

@@ -9,10 +9,9 @@ import "./transactionForm.scss";
 import convertToPrimaryCurrency from "../../utils/convertToPrimaryCurrency";
 import { updateWalletBalance } from "../../redux/slices/walletsSlice";
 import { updateIncomeBalance } from "../../redux/slices/incomeSlice";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 
 const IncomeForm = ({title, closeModal, from, to, today}) => {
-    const {request} = useAuthorizedRequest();
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState(today);
     const dispatch = useDispatch();
@@ -30,7 +29,7 @@ const IncomeForm = ({title, closeModal, from, to, today}) => {
             transactionType: "income",
         }
 
-        request("transactions", "POST", JSON.stringify(data))
+        $axios.post("transactions", data)
             .then(res => {
                 dispatch(createTransaction(res.data));
                 dispatch(updateWalletBalance({
