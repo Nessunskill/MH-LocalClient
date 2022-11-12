@@ -17,7 +17,7 @@ const transactionsSlice = createSlice({
     name: "transactions",
     initialState,
     reducers: {
-        createTransaction: (state, action) => { state.transactions.unshift(action.payload) },
+        createTransaction: (state, action) => { state.transactions.unshift(action.payload.data) },
         removeTransaction: (state, action) => {
             state.transactions = state.transactions.filter(item => item.id !== action.payload);
         },
