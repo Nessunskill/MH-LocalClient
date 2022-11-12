@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 const TransactionsSections = () => {
     const {transactions} = useSelector(state => state.transactions);
-    const [filter, setFilter] = useState("expenses");
+    const [filter, setFilter] = useState("all");
     const linksRef = useRef([]);
     
     useEffect(() => {
@@ -27,10 +27,10 @@ const TransactionsSections = () => {
             <div className="transactions__navigation navigation">
                 <ul className="navigation__menu">
                     <li onClick={(e) => setLinkAsActive(e, linksRef)} className="navigation__item">
-                        <span data-filter="all" ref={element => linksRef.current.push(element)} className="navigation__link">Все</span>
+                        <span data-filter="all" ref={element => linksRef.current.push(element)} className="navigation__link navigation__link_active">Все</span>
                     </li>
                     <li onClick={(e) => setLinkAsActive(e, linksRef)} className="navigation__item">
-                        <span data-filter="expenses" ref={element => linksRef.current.push(element)} className="navigation__link navigation__link_active">Расходы</span>
+                        <span data-filter="expenses" ref={element => linksRef.current.push(element)} className="navigation__link">Расходы</span>
                     </li>
                     <li onClick={(e) => setLinkAsActive(e, linksRef)} className="navigation__item">
                         <span data-filter="income" ref={element => linksRef.current.push(element)} className="navigation__link">Доходы</span>

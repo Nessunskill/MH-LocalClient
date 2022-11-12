@@ -1,18 +1,23 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Layout.scss";
 import "../styles/general.scss";
 import Menu from "../components/menu/Menu";
+import { isExpired } from "react-jwt";
+import $axios from "../axios/axios";
+import { checkAuth } from "../redux/slices/authSlice";
 
 const Layout = () => {
     const {auth, userName} = useSelector(state => state.auth);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        !auth ? navigate('/login') : navigate('/');
+        // dispatch(checkAuth(localStorage.getItem("accessToken")));
+        // !auth ? navigate('/login') : navigate('/');
         // eslint-disable-next-line
-    }, [auth]);
+    }, []);
 
     return(
         <div className="layout">

@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { isExpired } from "react-jwt";
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
     auth: false,
@@ -15,6 +17,20 @@ export const login = createAsyncThunk(
         return request;
     }
 );
+
+export const checkAuth = createAsyncThunk(
+    "auth/checkAuth",
+    (accessToken) => {
+        const isTokenExpired = isExpired(accessToken);
+        const navigate = useNavigate();
+        if (!isTokenExpired) return
+
+        return axios.get("http://localhost:4000/api/refresh", {withCredentials: true})
+            .then(res => res.data)
+            .then(res => localStorage.setItem("accessToken", res.accessToken))
+            .catch(() => navigate("/login"));
+    }
+)
 
 const authSlice = createSlice({
     name: "auth",
@@ -40,6 +56,12 @@ const authSlice = createSlice({
             .addCase(login.rejected, state => {
                 state.authLoadingStatus = "error";
             })
+            .addCase(checkAuth.fulfilled, (state, action) => {
+                state.auth = true;
+            })
+            .addCase(checkAuth.rejected, state => {
+                state.auth = false;
+            })
             .addDefaultCase(() => {})
     }
 });
@@ -48,17 +70,3 @@ const {actions, reducer} = authSlice;
 
 export const {logout} = actions;
 export default reducer;
-
-/*
-Перед каждым запросом будет вызывать метод checkAuth
-
-Метод checkAuth проверяет авторизован ли пользователь или нет.
-    В первую очередь проверяем не протух ли accessToken
-    Если не протух, то пропускаем запрос дальше.
-    !Если протух, то достаем из куков refreshToken, проверяем его на срок годности
-    -> Если срок годности истек переводим пользователя на /login
-    -> Если срок годности не истек, то делаем запрос на /refresh, получаем новую пару токенов, access записываем в localStorage, а 
-        refresh уже сервер нам записал в куки
-    -> Пропускаем запрос дальше
-
-*/
