@@ -8,10 +8,9 @@ import convertCurrencySymbol from "../../utils/convertCurrencySymbol";
 import convertBalance from "../../utils/convertBalance";
 import convertToPrimaryCurrency from "../../utils/convertToPrimaryCurrency";
 import { updateWalletBalance } from "../../redux/slices/walletsSlice";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 
 const TransferForm = ({closeModal, from, to, today}) => {
-    const {request} = useAuthorizedRequest();
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState(today);
     const dispatch = useDispatch();
@@ -29,19 +28,19 @@ const TransferForm = ({closeModal, from, to, today}) => {
             transactionType: "transfer",
         }
 
-        request("transactions", "POST", JSON.stringify(data))
-            .then(res => {
-                dispatch(createTransaction(res.data));
-                dispatch(updateWalletBalance({
-                    id: from.id,
-                    amount: -data.amount,
-                }));
-                dispatch(updateWalletBalance({
-                    id: to.id,
-                    amount: data.amount
-                }))
-                closeModal();
-            });
+        $axios.post("transactions", data)
+        .then(res => {
+            dispatch(createTransaction(res.data));
+            dispatch(updateWalletBalance({
+                id: from.id,
+                amount: -data.amount,
+            }));
+            dispatch(updateWalletBalance({
+                id: to.id,
+                amount: data.amount
+            }))
+            closeModal();
+        });
     }
 
     return(

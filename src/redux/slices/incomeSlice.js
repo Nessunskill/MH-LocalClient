@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 
 const initialState = {
     income: [],
@@ -9,9 +9,7 @@ const initialState = {
 export const fetchIncome = createAsyncThunk(
     "income/fetchIncome",
     async () => {
-        const {request} = useAuthorizedRequest();
-
-        return request("income");
+        return $axios.get("income");
     }
 );
 
@@ -55,7 +53,7 @@ const income = createSlice({
             })
             .addCase(fetchIncome.fulfilled, (state, action) => {
                 state.incomeLoadingStatus = "idle";
-                state.income = action.payload.data;
+                state.income = action.payload.data.data;
             })
             .addCase(fetchIncome.rejected, state => {
                 state.incomeLoadingStatus = "error";

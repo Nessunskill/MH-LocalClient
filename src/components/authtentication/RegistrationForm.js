@@ -1,10 +1,9 @@
 import withAuth from "../../hoc/withAuth";
 import { Link, useNavigate } from "react-router-dom";
 import "./authenticationForm.scss";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 
 const RegistrationForm = ({handleChange, username, setUsername, password, setPassword}) => {
-    const {request} = useAuthorizedRequest();
     const navigate = useNavigate();
 
     const onSubmit = (e) => {
@@ -12,8 +11,8 @@ const RegistrationForm = ({handleChange, username, setUsername, password, setPas
 
         const registrationData = {username, password};
 
-        request("registration", "POST", JSON.stringify(registrationData))
-            .then(res => navigate('/login'));
+        $axios.post("registration", registrationData)
+            .then(() => navigate('/login'));
     }
 
     return(

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 import { updateExpenseAmount } from "../../redux/slices/expensesSlice";
 import { updateIncomeAmount } from "../../redux/slices/incomeSlice";
 import { removeTransaction } from "../../redux/slices/transactionsSlice";
@@ -7,15 +7,13 @@ import { updateWalletAmount } from "../../redux/slices/walletsSlice";
 import "./alertModal.scss";
 
 const AlertModal = ({foundTransactions, closeModal, closeAlert, categoryId, type, deleteCategory}) => {
-    const {request} = useAuthorizedRequest();
-
     const dispatch = useDispatch();
     const {income} = useSelector(state => state.income);
     const {wallets} = useSelector(state => state.wallets);
     const {expenses} = useSelector(state => state.expenses);
 
     const onFullRemove = () => {
-        request(`category/removefull/${categoryId}`, "POST", JSON.stringify({categoryType: type}))
+        $axios.post(`category/removefull/${categoryId}`, {categoryType: type})
             .then(deleteCategory(type));
 
         foundTransactions.forEach(item => {
@@ -73,7 +71,7 @@ const AlertModal = ({foundTransactions, closeModal, closeAlert, categoryId, type
     }
 
     const onRemove = () => {
-        request(`category/remove/${categoryId}`, "POST", JSON.stringify({categoryType: type}))
+        $axios.post(`category/remove/${categoryId}`, {categoryType: type})
             .then(deleteCategory(type));
     }
 
