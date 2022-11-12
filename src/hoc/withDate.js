@@ -1,14 +1,14 @@
-import formatDate from "../utils/formatDate";
-
 const withDate = (WrappedComponent) => {
     return (props) => {
-        let today = new Date();
-        today.setDate(today.getUTCDate() + 2);
-        today = today.toLocaleDateString();
-        today = today.replace(/\./g, "-")
-        today = formatDate(today);
+        let day, month, year;
 
-        return <WrappedComponent today={today} {...props}/>
+        const newDate = new Date();
+
+        day = newDate.getDate();
+        month = newDate.getMonth() + 1;
+        year = newDate.getFullYear();
+
+        return <WrappedComponent year={year} month={month} day={day} {...props}/>
     }
 }
 
