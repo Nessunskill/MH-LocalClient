@@ -9,10 +9,10 @@ import convertBalance from "../../utils/convertBalance";
 import convertToPrimaryCurrency from "../../utils/convertToPrimaryCurrency";
 import { updateWalletBalance } from "../../redux/slices/walletsSlice";
 import { updateExpenseBalance } from "../../redux/slices/expensesSlice";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 
-const ExpenseForm = ({title, closeModal, from, to, today}) => {
-    const {request} = useAuthorizedRequest();
+const ExpenseForm = ({title, closeModal, from, to, year, month, day}) => {
+    const today = `${year}-${month}-${day}`;
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState(today);
     const dispatch = useDispatch();
@@ -24,14 +24,16 @@ const ExpenseForm = ({title, closeModal, from, to, today}) => {
             id: nanoid(),
             amount: convertToPrimaryCurrency(amount, from.currency),
             description: " ",
-            date,
+            date: date,
             fromId: from.id,
             toId: to.id,
             transactionType: "expense",
         }
 
-        request("transactions", "POST", JSON.stringify(data))
+
+        $axios.post("transactions", data)
             .then(res => {
+                console.log(res.data)
                 dispatch(createTransaction(res.data));
                 dispatch(updateWalletBalance({
                     id: from.id,

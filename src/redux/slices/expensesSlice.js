@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useAuthorizedRequest } from "../../hooks/useAuthorizedRequest.hook";
+import $axios from "../../axios/axios";
 
 const initialState = {
     expenses: [],
@@ -9,9 +9,7 @@ const initialState = {
 export const fetchExpenses = createAsyncThunk(
     "expenses/fetchExpenses",
     async () => {
-        const {request} = useAuthorizedRequest();
-        
-        return request("categories");
+        return $axios.get("categories");
     }
 );
 
@@ -54,7 +52,7 @@ const expenses = createSlice({
                 state.expensesLoadingStatus = "loading";
             })
             .addCase(fetchExpenses.fulfilled, (state, action) => {
-                state.expenses = action.payload.data;
+                state.expenses = action.payload.data.data;
                 state.expensesLoadingStatus = "idle";
             })
             .addCase(fetchExpenses.rejected, state => {
