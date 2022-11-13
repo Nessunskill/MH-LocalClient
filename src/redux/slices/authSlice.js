@@ -1,8 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { isExpired } from "react-jwt";
-
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import $axios from "../../axios/axios";
 
 const initialState = {
     auth: false,
@@ -13,24 +10,9 @@ const initialState = {
 export const login = createAsyncThunk(
     "auth/login",
     (userData) => {
-        const request = axios.post("http://localhost:4000/api/login", userData, {withCredentials: true});
-        return request;
+        return $axios.post("login", userData);
     }
 );
-
-export const checkAuth = createAsyncThunk(
-    "auth/checkAuth",
-    (accessToken) => {
-        const isTokenExpired = isExpired(accessToken);
-        const navigate = useNavigate();
-        if (!isTokenExpired) return
-
-        return axios.get("http://localhost:4000/api/refresh", {withCredentials: true})
-            .then(res => res.data)
-            .then(res => localStorage.setItem("accessToken", res.accessToken))
-            .catch(() => navigate("/login"));
-    }
-)
 
 const authSlice = createSlice({
     name: "auth",
@@ -39,6 +21,10 @@ const authSlice = createSlice({
         logout: state => {
             state.auth = false;
             state.userName = "";
+            localStorage.clear();
+        },
+        authMe: state => {
+            state.auth = true;
         }
     },
     extraReducers: builder => {
@@ -56,17 +42,11 @@ const authSlice = createSlice({
             .addCase(login.rejected, state => {
                 state.authLoadingStatus = "error";
             })
-            .addCase(checkAuth.fulfilled, (state, action) => {
-                state.auth = true;
-            })
-            .addCase(checkAuth.rejected, state => {
-                state.auth = false;
-            })
             .addDefaultCase(() => {})
     }
 });
 
 const {actions, reducer} = authSlice;
 
-export const {logout} = actions;
+export const {logout, authMe} = actions;
 export default reducer;

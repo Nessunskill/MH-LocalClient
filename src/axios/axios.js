@@ -23,19 +23,19 @@ $axios.interceptors.response.use(function (response) {
         if (error.response.status === 401 && error.config && !error.config._isRetry) {
             originalRequest._isRetry = true;
 
-            try {
-                await $axios.get("refresh")
-                    .then(res => res.data)
-                    .then(res => {
-                        localStorage.setItem("accessToken", res.accessToken);
-                    })
+            // try {
+            //     await $axios.get("refresh")
+            //         .then(res => res.data)
+            //         .then(res => {
+            //             localStorage.setItem("accessToken", res.accessToken);
+            //         })
 
-                const oldData = JSON.parse(originalRequest.data);
+            //     const oldData = JSON.parse(originalRequest.data);
 
-                return await $axios.post(originalRequest.url, oldData);
-            } catch (e) {
-                console.log("Вы не авторизованы...");
-            }
+            //     return await $axios.post(originalRequest.url, oldData);
+            // } catch (e) {
+            //     console.log("Вы не авторизованы...");
+            // }
         }
 
         return Promise.reject(error);

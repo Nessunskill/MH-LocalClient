@@ -1,47 +1,23 @@
 import './App.scss';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Layout from '../layout/Layout';
 // eslint-disable-next-line 
 import { Login, Registration, Dashboard, Transactions, Savings, Analytics, Settings, NotFound } from '../pages/PagesCollection';
-import { useSelector } from 'react-redux';
-import { isExpired } from 'react-jwt';
-import { useEffect } from 'react';
-import $axios from '../axios/axios';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 const App = () => {
-    const {auth} = useSelector(state => state.auth);
-    const navigate = useNavigate();
-
-    const checkAuth = async () => {
-        const token = localStorage.getItem("accessToken");
-
-        const isTokenExpired = isExpired(token);
-
-        if (token && !isTokenExpired) {
-            navigate("/");
-        } else {
-            $axios.get("refresh")
-                .then(res => res.data)
-                .then(res => console.log(res));
-        }
-    }
-
-    useEffect(() => {
-        checkAuth();
-    }, [auth]);
-    
-    return (
+     return (
         <>
             <Routes>
                 <Route path='login' element={<Login/>}/>
                 <Route path='registration' element={<Registration/>}/>
 
-                <Route path='/' element={<Layout/>}>
-                    <Route index element={<Dashboard/>}/>
-                    <Route path='transactions' element={<Transactions/>}/>
-                    {/* <Route path='savings' element={<Savings/>}/> */}
-                    <Route path='analytics' element={<Analytics/>}/>
-                    <Route path='settings' element={<Settings/>}/>
+                <Route path='/' element={<PrivateRoute><Layout/></PrivateRoute>}>
+                    <Route index element={<PrivateRoute><Dashboard/></PrivateRoute>}/>
+                    <Route path='transactions' element={<PrivateRoute><Transactions/></PrivateRoute>}/>
+                    {/* <Route path='savings' element={<PrivateRoute></PrivateRoute><Savings/>}/> */}
+                    <Route path='analytics' element={<PrivateRoute><Analytics/></PrivateRoute>}/>
+                    <Route path='settings' element={<PrivateRoute><Settings/></PrivateRoute>}/>
                     <Route path='*' element={<NotFound/>} />
                 </Route>
             </Routes>  
