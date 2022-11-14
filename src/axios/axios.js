@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const _url = "http://localhost:4000/api/";
 
@@ -19,7 +20,8 @@ $axios.interceptors.response.use(function (response) {
 
 },  async function (error) {
         const originalRequest = error.config;
-        
+        const navigate = useNavigate();
+
         if (error.response.status === 401 && error.config && !error.config._isRetry) {
             originalRequest._isRetry = true;
 
@@ -32,7 +34,8 @@ $axios.interceptors.response.use(function (response) {
 
                 const oldData = JSON.parse(originalRequest.data);
 
-                return await $axios.post(originalRequest.url, oldData);
+                return await $axios.post(originalRequest.url, oldData)
+                    .catch(e => navigate("/login"))
             } catch (e) {
                 console.log("Вы не авторизованы...");
             }
