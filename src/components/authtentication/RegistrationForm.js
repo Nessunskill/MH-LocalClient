@@ -6,6 +6,8 @@ import $axios from "../../axios/axios";
 const RegistrationForm = ({handleChange, username, setUsername, password, setPassword}) => {
     const navigate = useNavigate();
 
+    console.log('render')
+
     const onSubmit = (e) => {
         e.preventDefault();
 
