@@ -10,7 +10,13 @@ const initialState = {
 export const login = createAsyncThunk(
     "auth/login",
     (userData) => {
-        return $axios.post("login", userData);
+        // return $axios.post("login", userData);
+        return fetch("https://moneyholder-server.vercel.app/api/login", {
+            credentials: "include",
+            "Content-Type": "application/json",
+            body: JSON.stringify(userData),
+            method: "POST"
+        })
     }
 );
 
