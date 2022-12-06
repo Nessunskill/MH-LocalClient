@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const _url = "https://moneyholder-server.vercel.app/api";
+const _url = "http://localhost:4000/api/";
 
 const $axios = axios.create({
     baseURL: _url,
@@ -24,7 +24,7 @@ $axios.interceptors.response.use(function (response) {
             originalRequest._isRetry = true;
 
             try {
-                await axios.get("https://moneyholder-server.vercel.app/api/refresh", {withCredentials: true})
+                await axios.get("http://localhost:4000/api/refresh", {withCredentials: true})
                     .then(res => res.data)
                     .then(res => {
                         localStorage.setItem("accessToken", res.accessToken);
