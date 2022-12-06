@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const _url = "https://mh-local-server.vercel.app/";
+const _url = "https://mh-local-server.vercel.app/api";
 
 const $axios = axios.create({
     baseURL: _url,
