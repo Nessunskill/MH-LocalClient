@@ -14,6 +14,9 @@ import $axios from "../../axios/axios";
 const ExpenseForm = ({title, closeModal, from, to, today}) => {
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState(today);
+
+    console.log(date);
+
     const dispatch = useDispatch();
 
     const onSubmit = (e) => {
